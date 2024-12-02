@@ -7,6 +7,10 @@ function App() {
 
     const {onToggleButton, tg} = useTelegram();
 
+    if (!tg) {
+        console.error("Telegram WebApp API is not available");
+    }
+
     useEffect(() => {
         tg.ready();
     })
