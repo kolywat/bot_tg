@@ -1,0 +1,17 @@
+.energy-bar {
+    margin: 20px 0;
+    color: #fff;
+}
+
+.progress-bar {
+    background-color: #3e3e50;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.progress {
+    background-color: #ffcc00;
+    height: 100%;
+}

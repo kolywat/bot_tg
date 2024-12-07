@@ -1,0 +1,24 @@
+.main-info .coin-display {
+    font-size: 32px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.level {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    color: #fff;
+}
+
+.progress-bar {
+    background-color: #3e3e50;
+    height: 10px;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress {
+    background-color: #ffcc00;
+    height: 100%;
+}
