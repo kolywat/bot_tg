@@ -1,9 +1,9 @@
 import React from "react";
-import "./Menu.css";
+import "./Footer.css";
 
-const Menu = () => {
+const Footer = () => {
     return (
-        <div className="menu">
+        <div className="footer">
             <button>Exchange</button>
             <button>Mine</button>
             <button>Friends</button>
@@ -13,4 +13,4 @@ const Menu = () => {
     );
 };
 
-export default Menu;
+export default Footer;
