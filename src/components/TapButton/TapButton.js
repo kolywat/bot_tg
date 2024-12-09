@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect  } from "react";
 import "./Button.css"; // Файл с анимацией и стилями
 import axios from "axios";
 import tapCoin from '../../images/tap_coin.png';
