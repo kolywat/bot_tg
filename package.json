@@ -32,5 +32,6 @@
   "devDependencies": {
     "react-scripts": "^5.0.1",
     "webpack": "^5.97.1"
-  }
+  },
+  "proxy": "https://14e8-2001-2020-4343-fe89-c0f9-af62-d0f8-5a7d.ngrok-free.app"
 }
