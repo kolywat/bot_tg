@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Button.css"; // Файл с анимацией и стилями
 import axios from "axios";
+import tapCoin from '../../images/tap_coin.png';
 
 const TapButton = () => {
     const [isClicked, setIsClicked] = useState(false);
@@ -29,7 +30,7 @@ const TapButton = () => {
                 className={`tap-button ${isClicked ? "clicked" : ""}`}
                 onClick={handleTap}
             >
-                <img src="tap_coin.png" alt="Character" />
+                <img src={tapCoin} alt="Character" />
             </button>
         </div>
     );
