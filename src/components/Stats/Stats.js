@@ -13,7 +13,7 @@ const Stats = () => {
                 <p>50M</p>
             </div>
             <div className="stat-card">
-                <p>Прибыль в час:</p>
+                <p>Количество монет:</p>
                 <p>+368,94K</p>
             </div>
         </div>
