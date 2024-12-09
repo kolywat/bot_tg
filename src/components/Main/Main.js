@@ -1,5 +1,6 @@
 import React from "react";
 import "./Main.css";
+import TapButton from "../TapButton/TapButton";
 
 const Main = () => {
     return (
@@ -11,9 +12,7 @@ const Main = () => {
                 </div>
                 <p>Level 7/9</p>
             </div>
-            <div className="character">
-                <img src="https://via.placeholder.com/150" alt="Character" />
-            </div>
+            <TapButton />
             <div className="energy">
                 <p>Энергия: 6467/6500</p>
                 <div className="progress-bar energy-bar">
