@@ -11,7 +11,7 @@ const TapButton = () => {
     // Получение текущего баланса
     useEffect(() => {
         axios
-            .get(`https://14e8-2001-2020-4343-fe89-c0f9-af62-d0f8-5a7d.ngrok-free.app/bot_tg_back/api/getCoins.php?user_id=${userId}`)
+            .get(`/api/getCoins.php?user_id=${userId}`)
             .then((response) => {
                 setCoins(response.data.balance || 0); // Установить баланс из ответа сервера
             })
@@ -46,10 +46,6 @@ const TapButton = () => {
                 onClick={handleTap}
                 style={{ cursor: 'pointer' }}
             />
-            <div className="stat-card">
-                <p>Количество монет:</p>
-                <p>{coins !== null ? `+${coins}` : 'Загрузка...'}</p>
-            </div>
         </div>
     );
 };
