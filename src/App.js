@@ -9,7 +9,9 @@ import "./App.css";
 
 const App = () => {
     const [authStatus, setAuthStatus] = useState(null);
-    const [telegramData, setTelegramData] = useState(null); // Сохраним данные Telegram в состоянии
+    const [telegramData, setTelegramData] = useState(null);
+    const [token, setToken] = useState(null);
+    const [error, setError] = useState(null);
 
     const authenticateWithServer = async (telegramData) => {
         try {
@@ -17,46 +19,40 @@ const App = () => {
                 "https://cors-anywhere.herokuapp.com/https://3fff-2001-2020-4343-fe89-8042-8259-15dc-ff1f.ngrok-free.app/bot_tg_back/api/login/index.php",
                 {},
                 {
-                    headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                        "Telegram-Data": telegramData,
-                    },
+                    headers: { "Telegram-Data": telegramData },
                 }
             );
 
             if (response.data.ok) {
                 console.log("✅ Authentication successful:", response.data);
                 setAuthStatus("✅ Успешный вход!");
+                setToken(response.data.token);
             } else {
                 console.error("❌ Authentication failed:", response.data.message);
                 setAuthStatus(`❌ Ошибка входа: ${response.data.message}`);
             }
-        } catch (error) {
-            // Если ошибка произошла в сети (сервер не доступен, CORS и т.д.)
-            if (error.response) {
-                // Сервер вернул ответ с ошибкой (например, 422, 500)
-                console.error("🚨 Server responded with error:", error.response.data);
-                setAuthStatus(`🚨 Ошибка: ${error.response.data.message || 'Неизвестная ошибка'}`);
-            } else if (error.request) {
-                // Запрос был отправлен, но ответа от сервера не было
-                console.error("📡 No response from server:", error.request);
-                setAuthStatus("📡 Сервер не отвечает. Проверьте соединение.");
-            } else {
-                // Что-то пошло не так при настройке запроса
-                console.error("⚙️ Error setting up request:", error.message);
-                setAuthStatus(`⚙️ Ошибка: ${error.message}`);
-            }
+        } catch (err) {
+            console.error("⚙️ Error during authentication:", err.message);
+            setError(err.message);
         }
     };
 
     useEffect(() => {
         if (window.Telegram && window.Telegram.WebApp) {
             const telegramData = window.Telegram.WebApp.initData;
-            //const telegramDataString = encodeURIComponent(telegramData);
-            setTelegramData(telegramData); // Сохраняем данные в состоянии
-            authenticateWithServer(telegramData);
+            if (!telegramData) {
+                console.error("Telegram initData is missing");
+                return;
+            }
+            setTelegramData(telegramData);
         }
     }, []);
+
+    useEffect(() => {
+        if (telegramData && !token) {
+            authenticateWithServer(telegramData);
+        }
+    }, [telegramData, token]);
 
     return (
         <div className="app">
@@ -65,23 +61,12 @@ const App = () => {
             <Main />
             <Footer />
 
-            {/* Блок для отображения telegramData */}
-            <div className="debug-area" style={{ padding: '20px', background: '#f9f9f9', border: '1px solid #ccc', marginTop: '20px' }}>
+            <div className="debug-area">
                 <h2>Telegram Init Data:</h2>
                 <pre>{JSON.stringify(telegramData, null, 2)}</pre>
             </div>
-            {authStatus && (
-                <div
-                    style={{
-                        marginTop: '20px',
-                        padding: '10px',
-                        border: '1px solid',
-                        color: authStatus.includes('Успешный') ? 'green' : 'red'
-                    }}
-                >
-                    {authStatus}
-                </div>
-            )}
+            {authStatus && <div style={{ color: authStatus.includes("Успешный") ? "green" : "red" }}>{authStatus}</div>}
+            {error && <div style={{ color: "red" }}>Ошибка: {error}</div>}
         </div>
     );
 };
