@@ -11,7 +11,7 @@ const TapButton = () => {
     // Обработчик клика
     const handleTap = () => {
         axios
-            .post(`https://14e8-2001-2020-4343-fe89-c0f9-af62-d0f8-5a7d.ngrok-free.app/bot_tg_back/api/tap/index.php`, {
+            .post(`https://3fff-2001-2020-4343-fe89-8042-8259-15dc-ff1f.ngrok-free.app/bot_tg_back/api/tap/index.php`, {
                 user_id: userId,
             })
             .then((response) => {

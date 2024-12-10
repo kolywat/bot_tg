@@ -14,7 +14,7 @@ const App = () => {
     const authenticateWithServer = async (telegramDataString) => {
         try {
             const response = await axios.post(
-                "https://cors-anywhere.herokuapp.com/https://14e8-2001-2020-4343-fe89-c0f9-af62-d0f8-5a7d.ngrok-free.app/bot_tg_back/api/login/index.php",
+                "https://cors-anywhere.herokuapp.com/https://3fff-2001-2020-4343-fe89-8042-8259-15dc-ff1f.ngrok-free.app/bot_tg_back/api/login/index.php",
                 {},
                 {
                     headers: {
