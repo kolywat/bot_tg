@@ -25,15 +25,27 @@ const App = () => {
             );
 
             if (response.data.ok) {
-                console.log("Authentication successful:", response.data);
-                setAuthStatus("Success");
+                console.log("✅ Authentication successful:", response.data);
+                setAuthStatus("✅ Успешный вход!");
             } else {
-                console.error("Authentication failed:", response.data.message);
-                setAuthStatus("Failed");
+                console.error("❌ Authentication failed:", response.data.message);
+                setAuthStatus(`❌ Ошибка входа: ${response.data.message}`);
             }
         } catch (error) {
-            console.error("Error during authentication:", error);
-            setAuthStatus("Error");
+            // Если ошибка произошла в сети (сервер не доступен, CORS и т.д.)
+            if (error.response) {
+                // Сервер вернул ответ с ошибкой (например, 422, 500)
+                console.error("🚨 Server responded with error:", error.response.data);
+                setAuthStatus(`🚨 Ошибка: ${error.response.data.message || 'Неизвестная ошибка'}`);
+            } else if (error.request) {
+                // Запрос был отправлен, но ответа от сервера не было
+                console.error("📡 No response from server:", error.request);
+                setAuthStatus("📡 Сервер не отвечает. Проверьте соединение.");
+            } else {
+                // Что-то пошло не так при настройке запроса
+                console.error("⚙️ Error setting up request:", error.message);
+                setAuthStatus(`⚙️ Ошибка: ${error.message}`);
+            }
         }
     };
 
