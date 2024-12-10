@@ -52,7 +52,7 @@ const App = () => {
     useEffect(() => {
         if (window.Telegram && window.Telegram.WebApp) {
             const telegramData = window.Telegram.WebApp.initData;
-            const telegramDataString = decodeURIComponent(telegramData);
+            const telegramDataString = encodeURIComponent(telegramData);
             setTelegramData(telegramDataString); // Сохраняем данные в состоянии
             authenticateWithServer(telegramDataString);
         }
