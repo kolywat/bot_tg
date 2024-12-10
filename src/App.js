@@ -6,12 +6,23 @@ import Footer from "./components/Footer/Footer";
 import "./hooks/useTelegram";
 import axios from "axios";
 import "./App.css";
+import { saveAs } from "file-saver";
 
 const App = () => {
     const [authStatus, setAuthStatus] = useState(null);
     const [telegramData, setTelegramData] = useState(null);
     const [token, setToken] = useState(null);
     const [error, setError] = useState(null);
+
+    const logErrorToFile = (error, telegramData) => {
+        const errorLog = {
+            timestamp: new Date().toISOString(),
+            error: error.message,
+            telegramData,
+        };
+        const blob = new Blob([JSON.stringify(errorLog, null, 2)], { type: "application/json" });
+        saveAs(blob, `error_log_${Date.now()}.json`);
+    };
 
     const authenticateWithServer = async (telegramData) => {
         try {
@@ -34,6 +45,7 @@ const App = () => {
         } catch (err) {
             console.error("⚙️ Error during authentication:", err.message);
             setError(err.message);
+            logErrorToFile(err, telegramData);
         }
     };
 
