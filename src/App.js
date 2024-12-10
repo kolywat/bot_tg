@@ -58,6 +58,18 @@ const App = () => {
                 <h2>Telegram Init Data:</h2>
                 <pre>{JSON.stringify(telegramData, null, 2)}</pre>
             </div>
+            {authStatus && (
+                <div
+                    style={{
+                        marginTop: '20px',
+                        padding: '10px',
+                        border: '1px solid',
+                        color: authStatus.includes('Успешный') ? 'green' : 'red'
+                    }}
+                >
+                    {authStatus}
+                </div>
+            )}
         </div>
     );
 };
