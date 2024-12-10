@@ -53,7 +53,6 @@ const App = () => {
         if (window.Telegram && window.Telegram.WebApp) {
             const telegramData = window.Telegram.WebApp.initData;
             const telegramDataString = encodeURIComponent(telegramData);
-            setTelegramData(telegramDataString); // Сохраняем данные в состоянии
             authenticateWithServer(telegramDataString);
         }
     }, []);
