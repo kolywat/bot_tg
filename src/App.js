@@ -11,7 +11,7 @@ const App = () => {
     const [authStatus, setAuthStatus] = useState(null);
     const [telegramData, setTelegramData] = useState(null); // Сохраним данные Telegram в состоянии
 
-    const authenticateWithServer = async (telegramData) => {
+    const authenticateWithServer = async (telegramDataString) => {
         try {
             const response = await axios.post(
                 "https://cors-anywhere.herokuapp.com/https://14e8-2001-2020-4343-fe89-c0f9-af62-d0f8-5a7d.ngrok-free.app/bot_tg_back/api/login/index.php",
@@ -19,7 +19,7 @@ const App = () => {
                 {
                     headers: {
                         "Content-Type": "application/x-www-form-urlencoded",
-                        "Telegram-Data": telegramData,
+                        "Telegram-Data": telegramDataString,
                     },
                 }
             );
@@ -52,8 +52,9 @@ const App = () => {
     useEffect(() => {
         if (window.Telegram && window.Telegram.WebApp) {
             const telegramData = window.Telegram.WebApp.initData;
-            setTelegramData(telegramData); // Сохраняем данные в состоянии
-            authenticateWithServer(telegramData);
+            const telegramDataString = encodeURIComponent(telegramData);
+            setTelegramData(telegramDataString); // Сохраняем данные в состоянии
+            authenticateWithServer(telegramDataString);
         }
     }, []);
 
