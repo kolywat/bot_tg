@@ -8,18 +8,6 @@ const TapButton = () => {
 
     const userId = 1953583187; // Ваш ID пользователя
 
-    // Получение текущего баланса
-    useEffect(() => {
-        axios
-            .get(`/api/getCoins.php?user_id=${userId}`)
-            .then((response) => {
-                setCoins(response.data.balance || 0); // Установить баланс из ответа сервера
-            })
-            .catch((error) => {
-                console.error('Ошибка получения монет:', error);
-            });
-    }, []);
-
     // Обработчик клика
     const handleTap = () => {
         axios
