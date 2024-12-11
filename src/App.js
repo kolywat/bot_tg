@@ -1,24 +1,24 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { retrieveLaunchParams } from "@telegram-apps/sdk"; // Импорт retrieveLaunchParams
 import Header from "./components/Header/Header";
 import Stats from "./components/Stats/Stats";
 import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
-import "./hooks/useTelegram";
-import axios from "axios";
 import "./App.css";
 
 const App = () => {
     const [authStatus, setAuthStatus] = useState(null); // Состояние для статуса аутентификации
-    const [telegramData, setTelegramData] = useState(null); // Сохраним данные Telegram
 
-    const authenticateWithServer = async (telegramData) => {
+    // Отправка данных на сервер
+    const authenticateWithServer = async (initDataRaw) => {
         try {
             const response = await axios.post(
-                "https://8d13-2001-2020-4343-fe89-a8d3-e09b-72f1-eb4a.ngrok-free.app/bot_tg_back/api/login/index.php", // Замените на реальный адрес
-                { initData: telegramData }, // Передача данных в теле запроса
+                "https://example.com/bot_tg_back/api/login/index.php", // Укажите реальный адрес
+                {}, // Тело запроса оставлено пустым, так как данные передаются через заголовок
                 {
                     headers: {
-                        "Content-Type": "application/json", // Заголовок указывает на JSON
+                        "Authorization": `tma ${initDataRaw}`, // Передача данных initDataRaw через заголовок
                     },
                 }
             );
@@ -45,17 +45,15 @@ const App = () => {
     };
 
     useEffect(() => {
-        if (window.Telegram && window.Telegram.WebApp) {
-            // Инициализация WebApp и получение данных Telegram
-            const initData = window.Telegram.WebApp.initData || "";
-            console.log("Telegram Init Data:", initData);
-            setTelegramData(initData);
+        const { initDataRaw } = retrieveLaunchParams(); // Извлекаем initDataRaw
+        if (initDataRaw) {
+            console.log("Telegram Init Data Raw:", initDataRaw);
 
-            // Отправка данных Telegram на сервер
-            authenticateWithServer(initData);
+            // Отправка данных на сервер
+            authenticateWithServer(initDataRaw);
         } else {
-            console.warn("Telegram WebApp не инициализирован.");
-            setAuthStatus("Telegram WebApp не доступен.");
+            console.warn("Telegram WebApp не предоставил данные.");
+            setAuthStatus("Telegram WebApp не предоставил данные.");
         }
     }, []);
 
