@@ -14,7 +14,7 @@ const App = () => {
     const authenticateWithServer = async (initDataRaw) => {
         try {
             const response = await axios.post(
-                "https://8d13-2001-2020-4343-fe89-a8d3-e09b-72f1-eb4a.ngrok-free.app/bot_tg_back/api/login/index.php", // Укажите реальный адрес
+                "https://cors-anywhere.herokuapp.com/https://8d13-2001-2020-4343-fe89-a8d3-e09b-72f1-eb4a.ngrok-free.app/bot_tg_back/api/login/index.php", // Укажите реальный адрес
                 {}, // Тело запроса оставлено пустым, так как данные передаются через заголовок
                 {
                     headers: {
