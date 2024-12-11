@@ -14,12 +14,11 @@ const App = () => {
     const authenticateWithServer = async (telegramData) => {
         try {
             const response = await axios.post(
-                "https://3fff-2001-2020-4343-fe89-8042-8259-15dc-ff1f.ngrok-free.app/bot_tg_back/api/login/index.php",
-                {}, // Данные для тела запроса, в данном случае пусто
+                "https://8d13-2001-2020-4343-fe89-a8d3-e09b-72f1-eb4a.ngrok-free.app/bot_tg_back/api/login/index.php", // Замените на реальный адрес
+                { initData: telegramData }, // Передача данных в теле запроса
                 {
                     headers: {
-                        "Content-Type": "application/x-www-form-urlencoded",
-                        "Telegram-Data": telegramData, // Отправляем данные Telegram через заголовок
+                        "Content-Type": "application/json", // Заголовок указывает на JSON
                     },
                 }
             );
@@ -32,7 +31,6 @@ const App = () => {
                 setAuthStatus(`❌ Ошибка входа: ${response.data.message}`);
             }
         } catch (error) {
-            // Обработка ошибок
             if (error.response) {
                 console.error("🚨 Server responded with error:", error.response.data);
                 setAuthStatus(`🚨 Ошибка: ${error.response.data.message || "Неизвестная ошибка"}`);
