@@ -11,14 +11,14 @@ const App = () => {
     const [authStatus, setAuthStatus] = useState(null); // Состояние для статуса аутентификации
 
     // Отправка данных на сервер
-    const authenticateWithServer = async (initDataRaw) => {
+    const authenticateWithServer = async (initData) => {
         try {
             const response = await axios.post(
                 "https://30ea-2001-2020-4343-fe89-28f9-bbaa-da2d-787b.ngrok-free.app/bot_tg_back/api/login/index.php", // Укажите реальный адрес
                 {}, // Тело запроса оставлено пустым, так как данные передаются через заголовок
                 {
                     headers: {
-                        "Authorization": `tma ${initDataRaw}`, // Передача данных initDataRaw через заголовок
+                        "Authorization": initData, // Передача обработанных данных через заголовок
                     },
                 }
             );
@@ -45,12 +45,15 @@ const App = () => {
     };
 
     useEffect(() => {
-        const { initDataRaw } = retrieveLaunchParams(); // Извлекаем initDataRaw
-        if (initDataRaw) {
-            console.log("Telegram Init Data Raw:", initDataRaw);
+        const initData = window.telegram?.window?.initData; // Извлекаем initData через window.telegram
+        if (initData) {
+            console.log("Telegram Init Data:", initData);
+
+            // Преобразуем initData в строку JSON, если нужно передавать как обычные данные
+            const initDataString = JSON.stringify(initData);
 
             // Отправка данных на сервер
-            authenticateWithServer(initDataRaw);
+            authenticateWithServer(initDataString);
         } else {
             console.warn("Telegram WebApp не предоставил данные.");
             setAuthStatus("Telegram WebApp не предоставил данные.");
