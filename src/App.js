@@ -46,7 +46,7 @@ const App = () => {
     };
 
     useEffect(() => {
-        const initData = initInitData(); // Извлекаем initData через window.telegram
+        const initData = window.telegram?.window?.initData; // Извлекаем initData через window.telegram
         if (initData) {
             console.log("Telegram Init Data:", initData);
 
