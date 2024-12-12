@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import Stats from "./components/Stats/Stats";
 import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
+import { initInitData } from '@telegram-apps/sdk';
 import "./App.css";
 
 const App = () => {
@@ -45,7 +46,7 @@ const App = () => {
     };
 
     useEffect(() => {
-        const initData = window.telegram?.window?.initData; // Извлекаем initData через window.telegram
+        const initData = initInitData(); // Извлекаем initData через window.telegram
         if (initData) {
             console.log("Telegram Init Data:", initData);
 
