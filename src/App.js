@@ -7,7 +7,8 @@ import Footer from "./components/Footer/Footer";
 import "./App.css";
 
 const App = () => {
-    const [authStatus, setAuthStatus] = useState(null); // Состояние для статуса аутентификации
+    const [authStatus, setAuthStatus] = useState(null); // Состояние для статуса аутентификаци
+    const [initData, setInitData] = useState(null);
 
     // Отправка данных на сервер
     const authenticateWithServer = async (initData) => {
@@ -47,6 +48,7 @@ const App = () => {
         const initData = window.Telegram.WebApp.initData; // Извлекаем initData через window.telegram
         if (initData) {
             console.log("Telegram Init Data: ", initData);
+            setInitData(initData);
 
             // Преобразуем initData в строку JSON, если нужно передавать как обычные данные
             //const initDataString = JSON.stringify(initData);
