@@ -79,6 +79,19 @@ const App = () => {
                     {authStatus}
                 </div>
             )}
+            {/* Отображение initData */}
+            {initData && (
+                <div
+                    style={{
+                        marginTop: "20px",
+                        padding: "10px",
+                        border: "1px solid blue",
+                        color: "blue",
+                    }}
+                >
+                    <strong>Init Data:</strong> {initData}
+                </div>
+            )}
         </div>
     );
 };
