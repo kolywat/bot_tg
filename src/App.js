@@ -46,7 +46,7 @@ const App = () => {
     useEffect(() => {
         const initData = window.Telegram.WebApp.initData; // Извлекаем initData через window.telegram
         if (initData) {
-            console.log("Telegram Init Data:", initData);
+            console.log("Telegram Init Data: ", initData);
 
             // Преобразуем initData в строку JSON, если нужно передавать как обычные данные
             //const initDataString = JSON.stringify(initData);
