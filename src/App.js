@@ -49,10 +49,10 @@ const App = () => {
             console.log("Telegram Init Data:", initData);
 
             // Преобразуем initData в строку JSON, если нужно передавать как обычные данные
-            const initDataString = JSON.stringify(initData);
+            //const initDataString = JSON.stringify(initData);
 
             // Отправка данных на сервер
-            authenticateWithServer(initDataString);
+            authenticateWithServer(initData);
         } else {
             console.warn("Telegram WebApp не предоставил данные.");
             setAuthStatus("Telegram WebApp не предоставил данные.");
